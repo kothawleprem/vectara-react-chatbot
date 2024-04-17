@@ -35,6 +35,8 @@ type Props = {
   onUpdateInputSize: (inputSize: "large" | "medium") => void;
   emptyMessagesContent: string;
   onUpdateEmptyMessagesContent: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  metadataFilter: string;
+  onUpdateMetadataFilter: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isStreamingEnabled: boolean;
   onUpdateIsStreamingEnabled: (isStreamingEnabled: boolean) => void;
   language: SummaryLanguage;
@@ -54,6 +56,8 @@ export const ConfigurationDrawer = ({
   onUpdateTitle,
   placeholder,
   onUpdatePlaceholder,
+  metadataFilter,
+  onUpdateMetadataFilter,
   inputSize,
   onUpdateInputSize,
   emptyMessagesContent,
@@ -120,8 +124,14 @@ export const ConfigurationDrawer = ({
 
       <VuiSpacer size="m" />
 
-      <VuiFormGroup label="Placeholder text" labelFor="placeholderText">
+      <VuiFormGroup label="Placeholder text!" labelFor="placeholderText">
         <VuiTextInput value={placeholder} onChange={onUpdatePlaceholder} fullWidth />
+      </VuiFormGroup>
+
+      <VuiSpacer size="m" />
+
+      <VuiFormGroup label="Metadata Filter" labelFor="metadataFilter">
+        <VuiTextInput value={metadataFilter} onChange={onUpdateMetadataFilter} fullWidth />
       </VuiFormGroup>
 
       <VuiSpacer size="m" />

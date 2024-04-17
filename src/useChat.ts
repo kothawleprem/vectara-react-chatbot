@@ -19,7 +19,8 @@ export const useChat = (
   corpusIds: string[],
   apiKey: string,
   useStreaming: boolean = true,
-  language: SummaryLanguage = "eng"
+  language: SummaryLanguage = "eng",
+  metadataFilter: string
 ) => {
   const [messageHistory, setMessageHistory] = useState<ChatTurn[]>([]);
   const recentQuestion = useRef<string>("");
@@ -48,7 +49,7 @@ export const useChat = (
     });
 
     const baseSearchRequestParams = {
-      filter: "",
+      filter: metadataFilter,
       queryValue: query,
       rerank: true,
       rerankNumResults: 7,
@@ -59,6 +60,7 @@ export const useChat = (
       endpoint: "api.vectara.io",
       apiKey: apiKey
     };
+
 
     setIsLoading(true);
 

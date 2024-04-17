@@ -33,6 +33,7 @@ interface Props {
   language: SummaryLanguage;
   title?: string;
   placeholder?: string;
+  metadataFilter:string;
   inputSize?: "large" | "medium";
   emptyStateDisplay?: ReactNode;
   isInitiallyOpen?: boolean;
@@ -50,6 +51,7 @@ export const ChatView = ({
   apiKey,
   title = "My Chatbot",
   placeholder = "Chat with your AI Assistant",
+  metadataFilter,
   inputSize = "large",
   emptyStateDisplay = <DefaultEmptyMessagesState />,
   isInitiallyOpen,
@@ -60,7 +62,7 @@ export const ChatView = ({
   const [isOpen, setIsOpen] = useState<boolean>(isInitiallyOpen ?? false);
   const [query, setQuery] = useState<string>("");
   const { sendMessage, startNewConversation, messageHistory, isLoading, hasError, activeMessage, isStreamingResponse } =
-    useChat(customerId, corpusIds, apiKey, enableStreaming, language);
+    useChat(customerId, corpusIds, apiKey, enableStreaming, language, metadataFilter);
 
   const appLayoutRef = useRef<HTMLDivElement>(null);
   const isScrolledToBottomRef = useRef(true);

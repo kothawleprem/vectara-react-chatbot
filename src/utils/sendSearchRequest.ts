@@ -48,18 +48,20 @@ export const sendSearchRequest = async ({
   apiKey,
   chat
 }: Config) => {
+
   const lambda =
     typeof queryValue === "undefined" || queryValue.trim().split(" ").length > hybridNumWords
       ? hybridLambdaLong
       : hybridLambdaShort;
   const corpusKeyList = corpusId.split(",").map((id) => {
+
     return {
       customerId,
       corpusId: id,
       lexicalInterpolationConfig: {
         lambda: lambda
       },
-      metadataFilter: filter ? `doc.source = '${filter}'` : undefined
+      metadataFilter: filter
     };
   });
 

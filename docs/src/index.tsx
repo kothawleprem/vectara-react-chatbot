@@ -2,7 +2,9 @@ import { ChangeEvent, ReactNode, useCallback, useState } from "react";
 import ReactDOM from "react-dom";
 import { BiLogoGithub } from "react-icons/bi";
 import JsxParser from "react-jsx-parser";
-import { ReactChatbot, SummaryLanguage } from "@vectara/react-chatbot";
+import { ReactChatbot, SummaryLanguage } from '../../../vectara-react-chatbot'
+
+// import { ReactChatbot, SummaryLanguage } from "@vectara/react-chatbot";
 import {
   VuiAppContent,
   VuiAppHeader,
@@ -37,6 +39,7 @@ const generateCodeSnippet = (
   apiKey?: string,
   title?: string,
   placeholder?: string,
+  metadataFilter?: string,
   inputSize?: string,
   emptyStateDisplay?: string,
   isStreamingEnabled?: boolean,
@@ -56,6 +59,10 @@ const generateCodeSnippet = (
 
   if (placeholder) {
     props.push(`placeholder=${formatStringProp(placeholder)}`);
+  }
+
+  if (metadataFilter){
+    props.push(`metadataFilter=${formatStringProp(metadataFilter)}`);
   }
 
   if (inputSize) {
@@ -89,6 +96,7 @@ const DEFAULT_CUSTOMER_ID = "1366999410";
 const DEFAULT_API_KEY = "zqt_UXrBcnI2UXINZkrv4g1tQPhzj02vfdtqYJIDiA";
 const DEFAULT_TITLE = "Vectara Docs Chatbot";
 const DEFAULT_PLACEHOLDER = 'Try "What is Vectara?" or "How does RAG work?"';
+const DEFAULT_METADATAFILTER = ""
 
 const App = () => {
   const [isConfigurationDrawerOpen, setIsConfigurationDrawerOpen] = useState(false);
@@ -98,6 +106,7 @@ const App = () => {
   const [apiKey, setApiKey] = useState<string>("");
   const [title, setTitle] = useState<string>(DEFAULT_TITLE);
   const [placeholder, setPlaceholder] = useState<string>(DEFAULT_PLACEHOLDER);
+  const [metadataFilter, setMetadataFilter] = useState<string>("");
   const [inputSize, setInputSize] = useState<"large" | "medium">("large");
   const [isStreamingEnabled, setIsStreamingEnabled] = useState<boolean>(true);
   const [language, setLanguage] = useState<SummaryLanguage>("eng");
@@ -127,6 +136,10 @@ const App = () => {
 
   const onUpdatePlaceholder = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPlaceholder(e.target.value);
+  }, []);
+
+  const onUpdateMetadataFilter = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setMetadataFilter(e.target.value);
   }, []);
 
   const onUpdateEmptyMessagesContent = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -195,6 +208,7 @@ const App = () => {
               apiKey={apiKey === "" ? DEFAULT_API_KEY : apiKey}
               title={title === "" ? undefined : title}
               placeholder={placeholder}
+              metadataFilter={metadataFilter === "" ? DEFAULT_METADATAFILTER : metadataFilter}
               inputSize={inputSize}
               emptyStateDisplay={emptyStateJsx === "" ? undefined : <CustomEmptyStateDisplay />}
               isInitiallyOpen={isChatbotForcedOpen}
@@ -235,6 +249,7 @@ const App = () => {
                 apiKey,
                 title,
                 placeholder,
+                metadataFilter,
                 inputSize,
                 emptyStateJsx,
                 isStreamingEnabled,
@@ -319,6 +334,8 @@ export const App = () => {
               onUpdateTitle={onUpdateTitle}
               placeholder={placeholder}
               onUpdatePlaceholder={onUpdatePlaceholder}
+              metadataFilter={metadataFilter}
+              onUpdateMetadataFilter={onUpdateMetadataFilter}
               inputSize={inputSize}
               onUpdateInputSize={setInputSize}
               emptyMessagesContent={emptyStateJsx}

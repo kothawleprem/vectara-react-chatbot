@@ -22,6 +22,8 @@ export interface Props {
   // Text to be shown when the input field has no text
   placeholder?: string;
 
+  metadataFilter: string;
+
   // Size of input. Defaults to "large".
   inputSize?: "large" | "medium";
 
@@ -50,6 +52,7 @@ const ReactChatbotInternal: FC<Props> = ({
   corpusIds,
   title,
   placeholder,
+  metadataFilter,
   inputSize,
   emptyStateDisplay,
   isInitiallyOpen,
@@ -65,6 +68,7 @@ const ReactChatbotInternal: FC<Props> = ({
         apiKey={apiKey}
         title={title}
         placeholder={placeholder}
+        metadataFilter={metadataFilter}
         inputSize={inputSize}
         emptyStateDisplay={emptyStateDisplay}
         isInitiallyOpen={isInitiallyOpen}
@@ -87,6 +91,7 @@ class ReactChatbotWebComponent extends HTMLElement {
   apiKey!: string;
   title!: string;
   placeholder!: string;
+  metadataFilter!:string;
   isInitiallyOpen!: boolean;
   zIndex!: number;
   emptyStateDisplay!: ReactNode;
@@ -98,6 +103,7 @@ class ReactChatbotWebComponent extends HTMLElement {
       "apikey",
       "title",
       "placeholder",
+      "metadataFilter",
       "inputsize",
       "isinitiallyopen",
       "zindex",
@@ -142,6 +148,7 @@ class ReactChatbotWebComponent extends HTMLElement {
     const apiKey = this.getAttribute("apiKey") ?? "";
     const title = this.getAttribute("title") ?? undefined;
     const placeholder = this.getAttribute("placeholder") ?? undefined;
+    const metadataFilter = this.getAttribute("metadataFilter") ?? "";
     const inputSize = this.getAttribute("inputSize") ?? undefined;
     const isInitiallyOpen = this.getAttribute("isInitiallyOpen") === "true";
     const emptyStateDisplay = this.emptyStateDisplay ?? undefined;
@@ -158,6 +165,7 @@ class ReactChatbotWebComponent extends HTMLElement {
           apiKey={apiKey}
           title={title}
           placeholder={placeholder}
+          metadataFilter={metadataFilter}
           inputSize={inputSize as "large" | "medium" | undefined}
           emptyStateDisplay={emptyStateDisplay}
           isInitiallyOpen={isInitiallyOpen}
